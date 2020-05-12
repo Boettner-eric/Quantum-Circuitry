@@ -1,9 +1,37 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
+\usepackage{listings}
 
 \title{IBM Quantum Experience Review}
 \author{Boettner, Neumann, Gopalan }
 \date{May 2020}
+
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
 
 \begin{document}
 
@@ -12,6 +40,9 @@
 \section{Introduction}
 \section{Explanation of what IBM is}
 \section{section on how to code}
+    
+        \lstinputlisting[language=Python]{Circuits/grover.qasm}
+
 \section{what we did (recreate grover and DJ like in class)}
 \section{how the IBM Grover and DJ circuits connect to our in class algorithms.}
 \section{Conclusion}
