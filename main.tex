@@ -59,7 +59,7 @@
     \\
     %maybe describe briefly what shor's algorithm does?
     % shor's is poly time factorization I think? 
-    The history of quantum computing research goes all the way back to 1927 and each result marked a new piece of the puzzle. In October 2017, a significant mathematical result was published in the paper “Quantum Advantage with Shallow Circuits” (Bravyi et al. 2018), which guided the development of algorithms for quantum computing. The significance of this algorithm was that unlike Shor’s algorithm, it proved that a quantum computer can solve certain problems with near certainty in a fixed number of steps, no matter the increased input. A classical computer, on the other hand,  would require an increased number of steps as the input increases for the same problems. This made the Quantum Advantage algorithm a solid and necessary brick in the foundation of quantum computing.
+    The history of quantum computing research goes all the way back to 1927 and each result marked a new piece of the puzzle. In October 2017, a significant mathematical result was published in the paper “Quantum Advantage with Shallow Circuits” (Bravyi et al. 2018), which guided the development of algorithms for quantum computing. The significance of this algorithm was that unlike Shor’s algorithm, it proved that a quantum computer can solve certain problems with near certainty in a fixed number of steps, no matter the increased input. A classical computer, on the other hand, would require an increased number of steps as the input increases for the same problems. This made the Quantum Advantage algorithm a solid and necessary brick in the foundation of quantum computing.
     \\
     \smallskip
     \\
@@ -195,7 +195,7 @@
     \subsection{Grover Search algorithm}
         %small fixes/trimming
         The Grover search algorithm finds a given element inside of a list or database. As mentioned in the theory section, the number of necessary oracles for an n-qubit state is $\sqrt{n}$. For the example IBM provided, there are two qubits and four necessary oracle circuits. Each of these circuits corresponds to a given output state and if the quantum computer works properly, they would each only return one result with high probability. In this case IBM Q interpreted the four oracle circuits correctly and each only returned the expected state. This suggests that the software properly evaluated each circuit and that their example of the Grover search algorithm matched the one we studied in class.
-        \begin{figure}[ht]
+        \begin{figure}[h!t]
             \centering
             \begin{minipage}{0.35\linewidth}
                 \includegraphics[width=\linewidth]{Circuits/grover-code.png}
@@ -203,22 +203,27 @@
             \begin{minipage}{0.65\linewidth}
                 \includegraphics[width=\linewidth]{Circuits/grover.png}
             \end{minipage}
-            \caption{Grover Search algorithm}
+            \caption{Grover Search algorithm (a)}
         \end{figure}
+        %just used new page here to put diagram on the right page
+        \newpage
     
 \section{Conclusion}
-    %small trimming
-    As of now, quantum computing does not have many general purpose abilities. While the IBM quantum computer is fascinating to experiment with and prove various results, its computational power is quite limited. The IBM Q software was designed to allow academics and engineers to test circuits on an actual quantum computer and further software development with quantum algorithms. While the current IBM quantum computer does not provide practical benefits, it still benefits our understanding of quantum computation for when quantum computers become more accessible. IBM's software is easy to approach and use while still allowing for more complicated research and application. It was really rewarding to learn about and apply circuits from class to a real quantum computer. This paper only skims the surface of the possibilities of this software and only further research and testing will reveal the full capability of IBM's quantum software.
+    There are still many obstacles to overcome before achieving general purpose quantum computing. In order to distinguish between states and make any sort of calculation, a two level system is required. While bits in classical computing can be easily flipped and distinguished, physical qubits are extremely volatile and will rapidly decay their energy into the environment. The current most promising method of maintaining a two level system with superconducting qubits is to keep them at extremely low temperatures. For example, the IBM Quantum Experience keeps its superconducting qubits at 15 milliKelvin in order to reduce ambient heat and noise from interfering with the system. Despite this, our current technology and understanding only allows qubits to be maintained at an excited state for a small number of microseconds. Thus any quantum computation that takes longer than a small number of microseconds will become meaningless. This severely limits the current potential of quantum computers in tackling practical problems.
     \\
     \smallskip
     \\
-    In order to distinguish between states and make calculations, a two level system is required. While bits in classical computing can be easily flipped and distinguished, physical qubits are extremely volatile and will rapidly decay their energy into the environment. The current most promising method of maintaining a two level system with superconducting qubits is to keep them at extremely low temperatures. For example, the IBM Quantum Experience keeps its superconducting qubits at 15 milliKelvin in order to reduce ambient heat and noise from interfering with the system. Despite this, our current technology and understanding only allows qubits to be maintained at an excited state for a small number of microseconds. Thus any quantum computation that takes longer than a small number of microseconds will become meaningless. This severely limits the current potential of quantum computers in tackling practical problems.
+    %trimmed off some parts
+    Due to this severe limitation, quantum computing does not currently have many general purpose abilities. While the IBM quantum computer is fascinating to experiment with and prove various results, its computational power is quite limited. The IBM Q software was designed to allow academics and engineers to test circuits on an actual quantum computer and further software development with quantum algorithms. While the current IBM quantum computer does not provide practical benefits, it still benefits our understanding of quantum computation for when quantum computers become more accessible. IBM's software is easy to approach and use while still allowing for more complicated research and application. This paper only skims the surface of IBM's potential. Further research and testing will reveal the full capability of IBM's quantum software.
+    
+    
 
 \newpage
 
 \section{Appendix}
 \subsection{Qiskit}
-        Qiskit is a framework developed around QASM to make it possible to work with IBM Q from a console. For the purposes of this project we didn't create any Qiskit files but, it would be very useful for future research. This framework can be installed as a Python library through the pip package manager. When a user inputs their API key for the IBM Q software they can send any QASM circuit to one of the backend servers for processing. The server responds with a dictionary of each possible qubit state and the number of runs that resulted in that state. This interface allows for more nuanced work and allows a user to save configuration and circuit settings between queries. For the average user Qiskit adds a lot of unnecessary complexity and code to the process of drawing and testing a quantum circuit but, for researchers and engineers it allows for more flexible configurations and setups for testing quantum circuitry. We would highly recommend the Qiskit framework for work utilizing the IBM Q quantum computing platform.
+        %small fixes
+        Qiskit is a framework developed around QASM to make it possible to work with IBM Q from a console. For the purposes of this project we didn't create any Qiskit files, but it would be very useful for future research. This framework can be installed as a Python library through the pip package manager. When a user inputs their API key for the IBM Q software they can send any QASM circuit to one of the backend servers for processing. The server responds with a dictionary of each possible qubit state and the number of runs that resulted in that state. This interface allows for more nuanced work and allows a user to save configuration and circuit settings between queries. For the average user, Qiskit adds a lot of unnecessary complexity and code to the process of drawing and testing a quantum circuit. For researchers and engineers however, it allows far more flexible configurations and setups for testing quantum circuitry. We would highly recommend the Qiskit framework for work utilizing the IBM Q quantum computing platform.
 
 \end{document}
 
