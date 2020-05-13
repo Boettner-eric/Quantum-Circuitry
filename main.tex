@@ -4,15 +4,14 @@
 \usepackage{amsmath, amssymb}
 \usepackage{braket}
 \usepackage[margin=1.3in]{geometry}
-
-\title{IBM Quantum Experience Review}
-\author{Boettner, Neumann, Gopalan}
-\date{May 2020}
-
 \usepackage{subfigure}
 \usepackage{xcolor}
 \usepackage{graphicx}
 \usepackage{float}
+
+\title{IBM Quantum Experience Review}
+\author{Boettner, Neumann, Gopalan}
+\date{May 2020}
 
 \linespread{1.25}
 
@@ -122,6 +121,33 @@
     
     \subsection{Grover Search algorithm}
     
+    One of the many advantages a quantum computer has over a classical computer is its superior speed searching databases. An algorithm that is a great example of this advantage is Grover’s Search algorithm. When applied on an unstructured search, this algorithm can speed up the problem quadratically. The experiments described in this paper are modeled on the resource notes provided \textbf{here}\footnote{see https://quantum-computing.ibm.com/docs/guide/q-algos/grover-s-algorithm}. 
+    \\
+    \smallskip
+    \\
+    An unstructured search is basically finding a desired item from a large list of $N$ items. Classically, this search takes $N/2$ steps on average and $N$ steps in the worst case scenario. With a quantum computer, however, Grover’s search can speed this problem up and find the desired item in $\sqrt{N}$ steps. Grover’s algorithm immediately provides a quadratic quantum speed-up for many classical problems. Quadratic speedups are indeed a substantial time-saver for finding marked items in long lists. Another useful property of this algorithm is that it does not use the list’s internal structure, which makes it generically applicable.
+    \\
+    \smallskip
+    \\
+    The methodology we use is similar to the one we learned in class, which exploits Grover’s amplitude amplification trick by applying an oracle $U_f$ and rotating about a superposition state. The oracle we use encodes the list items provided to the computer in terms of a function $f$ which returns $f(x) = 0$ for all $x \neq w$ and $f(w) = 1$ where $w$ is the desired item. To use a quantum computer for this problem, we must provide the items in superposition to this function, so we encode the function into a unitary matrix. Here, for the basis states $\ket{x}$, the $U_f$ unitary matrix is given as $U_f \ket{x} = (-1)^{f(x)} \ket{x}$.
+    \\
+    \smallskip
+    \\
+    Since we have no idea where the marked item is, we might as well try the uniform superposition state as input for the oracle, $$\ket{s} = \frac{1}{\sqrt{N}}\sum^{N-1}_{x=0}\ket{x}$$
+    \noindent
+    If we measure this state, we would measure all states with equal probability (1/N). This is where amplitude amplification comes in. The algorithm utilizes geometrical interpretations of two reflections, which generate a rotation in a two-dimensional plane. The only two special states we need to consider are the desired item $\ket{w}$,  and the uniform superposition $\ket{s}$. Though these two vectors span a two-dimensional plane in the vector space $\mathbb{C}^2$, they are not quite perpendicular. However, we can introduce an additional state $\ket{s^\prime}$  that is in the span of these two vectors, which is perpendicular to $\ket{w}$ and is obtained from $\ket{s}$ by removing $\ket{w}$ and re-scaling. The Grover’s Search algorithm is as follows:
+    
+    \smallskip
+    
+    \begin{enumerate}
+        \item  Start with the uniform superposition state $\ket{s}$. $\ket{\psi_0} = \ket{s}$
+        \item Apply the oracle $U_f$ to the state $U_f \ket{\psi_t} = \ket{\psi_t'}$
+        \item Apply another rotation $U_s$ about $\ket{s}$ using $U_s = 2\ket{s}\bra{s}-1$, giving us $\ket{\psi_{t+1}} = U_{s}U_{f}\ket{\psi_t}$
+        \item Repeat step 2.
+    \end{enumerate}
+    \noindent
+    The two reflections result in a rotation. The transformation $U_{s}U_f$ rotates the initial state $\ket{s}$ closer towards the desired item $\ket{w}$. Since the average amplitude has been lowered by the first reflection, this transformation boosts the negative amplitude of $\ket{w}$ to roughly three times its original value, while it decreases the other amplitudes. We then repeat step 2 several times, each time getting closer to the desired item $\ket{w}$. After $t$ steps we have $\ket{\psi_t} = U_{s}U_{f} \ket{\psi_0}$. Turns out we need roughly $\sqrt{N}$ rotations in order to zero in on $w$, as we can see that the amplitude of $\ket{w}$ grows linearly with the number of applications $\approx tN^{-1/2}$.
+    
     
     
         
@@ -138,7 +164,7 @@
             \begin{minipage}{0.65\linewidth}
                 \includegraphics[width=\linewidth]{Circuits/Deutsch-Jozsa.png}
             \end{minipage}
-            \caption{Deutsch-Jozsa algorithm}
+            \caption{Deutsch-Jozsa on Balanced Function}
         \end{figure}
         \begin{figure}[ht]
             \centering
