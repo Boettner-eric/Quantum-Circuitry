@@ -4,7 +4,7 @@
 \usepackage{amsmath, amssymb}
 
 \title{IBM Quantum Experience Review}
-\author{Boettner, Neumann, Gopalan }
+\author{Boettner, Neumann, Gopalan}
 \date{May 2020}
 
 \usepackage{xcolor}
@@ -39,7 +39,6 @@
 
 \section{The IBM Q System One}
     
-    
     \begin{figure}[h!]
         \centering
         \includegraphics[width=\linewidth]{Circuits/ibm-q.jpg}
@@ -59,14 +58,22 @@
 
 
 \section{Theory}
-    \subsection{grover}
     \subsection{Deutsch-Jozsa algorithm}
+    
+    The Deutsch-Jozsa algorithm was the first to show a separation between the quantum and classical difficulty of a problem. Formally, it is defined as follows: Consider a function $f(x)$ that takes as input $n$-bit strings $x$ and returns 0  or 1. Suppose we are promised that $f(x)$ is either a \emph{constant} function that takes the same value $c \in {0,1}$ on all inputs $x$, or a \emph{balanced} function that takes each value 0 and 1 on exactly half of the inputs. \textbf{The goal is to decide whether $f$ is constant or balanced by making as few function evaluations as possible}. 
+    \\
+    \smallskip
+    \\
+    
+    \subsection{Grover Search algorithm}
+    
         
     
     
     
 \section{Coding in IBM Q}
-    \textbf{IBM Q} was designed to make it as simple as possible to compute the outcome of Quantum Circuits. By using a cloud based compute model and simple data encoding IBM Q allows users to click and drag gates into a circuit, view the encoding of that circuit in the \textbf{QASM} language\qasm, and see the result of running that Quantum Circuit on one of IBM's Quantum servers. This process is highly documented and user friendly. IBM Q is a cloud based processing engine for QASM encoded circuits and the IBM quantum experience adds a simple diagram composer to tie everything together. This platform allows a user to compose quantum circuits and test the result on different qubits. This section will outline how to use this platform to make and test quantum circuits and will provide some simple examples of the interface.
+    \textbf{IBM Q} was designed to make it as simple as possible to compute the outcome of Quantum circuits. By using a cloud-based compute model and simple data encoding IBM Q allows users to click and drag gates into a circuit, view the encoding of that circuit in the \textbf{QASM} language\qasm, and see the result of running that Quantum circuit on one of IBM's servers. This process is highly documented and user friendly.IBM Q is a cloud-based processing engine for QASM encoded circuits and the IBM quantum experience adds a simple diagram composer to tie everything together. This platform allows a user to compose quantum circuits and test the result on different qubits. This section will outline how to use this platform to make and test quantum circuits and will provide some simple examples of the interface.
+    
     \subsection{Diagram Composer}
         The IBM Q circuit composer allows a user to work with the code and a drag and drop interface side by side. This both helps a user learn how to use QASM and make tweaks to the code or visual easily. 
         (what is the composer and how does it work) click $\rightarrow$ drag
@@ -75,6 +82,7 @@
             \includegraphics[width=\linewidth]{Circuits/gates.png}
             \caption{Gates in IDM Q}
         \end{figure}
+        
     \subsection{Encoding}
         Circuit encoding in IBM Q is pretty simple. This software uses the QASM language developed by IBM in 2017. The QASM language uses arrays to represent qubit input states. In QASM gates are encoded by a short letter or letters\url these gate names are followed by the lines they work on (separated by commas). This encoding allows for complicated gates to be simplified to as few characters as possible. The IBM Q experience software also uses this encoding to send a users circuit to the server they want to analyze it with.
         \\
@@ -83,18 +91,22 @@
         Encoding a circuit into a small file is a crucial element of IBM Q as all of the computation is done on remote servers. Encoding a circuit into a simple text file allows a user to take advantage of IBM's cloud computing while minimizing the data transmitted between server and client. This allows IBM Q to process multiple circuits at once and allows users to use a server more convenient to them. To fully optimize this process IBM Q also transpiles a users quantum circuit to reduce the number of gates while retaining the circuits properties. The combination of QASM and transpiling\footnote{The transpiler introduces the concept of a pass manager to allow users to explore optimization and find better quantum circuits for their given algorithm (Qiskit 20).} makes a users request to a server as small and easy to compute as possible. 
 
     \subsection{Getting Results}
-        As earlier stated IBM Q is fully cloud based. This system utilizes multiple global servers to process user circuits. These servers utilize classical servers that decode the quantum circuit and sent the corresponding qubits to a real quantum computer.
+        As earlier stated IBM Q is fully cloud based. This system utilizes multiple global servers to process user circuits. These servers utilize classical servers that decode the quantum circuit and send the corresponding qubits to a real quantum computer.
     \subsection{Examples}
         \begin{figure}
                 \lstinputlisting[language=Python]{Circuits/grover.qasm}
             \caption{Grover In QASM}
         \end{figure}
-    \subsection{Qiskit}
-        Qiskit is a language developed around QASM to make it possible to work with IBM Q fully from the console. For the purposes of this project we didn't create any Qiskit 
 \section{Our Experiment}
 \section{Conclusion}
 \subsection{how the IBM Grover and DJ circuits connect to our in class algorithms.}
-\subsection{is this quantum computing?}
+\subsection{is this quantum computing? yes it is}
+
+\newpage
+
+\section{Appendix}
+\subsection{Qiskit}
+        Qiskit is a framework developed around QASM to make it possible to work with IBM Q from a console. For the purposes of this project we didn't create any Qiskit files but, it would be very useful for future research. This framework can be installed as a Python library through the pip package manager. When a user inputs their API key for the IBM Q software they can send any QASM circuit to one of the backend servers for processing. The server responds with a dictionary of each possible qubit state and the number of runs that resulted in that state. This interface allows for more nuanced work and allows a user to save configuration and circuit settings between queries. For the average user Qiskit adds a lot of unnecessary complexity and code to the process of drawing and testing a quantum circuit but, for researchers and engineers it allows for more flexible configurations and setups for testing quantum circuitry.
 
 \end{document}
 
