@@ -10,7 +10,7 @@
 \usepackage{float}
 
 \title{IBM Quantum Experience Review}
-\author{Boettner, Neumann, Gopalan}
+\author{Boettner, Gopalan, Neumann}
 \date{May 2020}
 
 \linespread{1.25}
@@ -45,7 +45,7 @@
 \begin{figure}[h!]
         \centering
         \includegraphics[width=\linewidth]{Circuits/ibm-q.jpg}
-        \caption{The IBM Q System One quantum computer}
+        \caption{The IBM Q System One Quantum Computer}
     \end{figure}
     \newpage
 \section{The IBM Q System One}
@@ -64,8 +64,7 @@
     \smallskip
     \\
     %rewrote last sentence
-    Building on this foundation, in 2019 IBM Quantum designed and built the world’s first integrated quantum computing system for commercial use: IBM Q System One\ibm\,in order to make quantum computers more reliable and stable. IBM Q System One enabled universal approximate superconducting quantum computers to operate beyond the confines of the research lab and is available online for free. In this paper, we describe using the ibm software, recreate circuits to experiment with the Grover’s Search algorithm and the Deutsch-Josza algorithm, and describe our results.
-
+    Building on this foundation, in 2019 IBM Quantum designed and built the world’s first integrated quantum computing system for commercial and educational use: IBM Q System One\ibm\. A large goal of this project was to further quantum computing by providing a reliable resource for quantum research. IBM Q System One provides a superconducting quantum computer that operates outside of research labs allowing the general public to access it for free. In this paper, we describe using the IBM software, recreate circuits to experiment with the Grover’s Search algorithm and the Deutsch-Josza algorithm, and describe our results.
 
 \section{Coding in IBM Q}
     \textbf{IBM Q} was designed to make computing the outcome of Quantum circuits as simple as possible. The built in Circuit Composer allows users to intuitively click and drag universal quantum gates onto a set of qubits. The user can then view the \textbf{QASM} language\qasm \ encoding of their circuit and manipulate it further if they wish. Finally, IBM's cloud based compute model allows the user to run their encoding on one of IBM's servers where it will join a queue before the results of the quantum circuit are sent back to the user. This whole process is highly documented and user friendly. 
@@ -117,7 +116,7 @@
     
     \noindent
     %small rewrites
-    The normalization condition, $\sum_{y}Pr(y) = 1$, gives us $C = 2^{-n}$. Now, we can compute the probability  of observing the particle at the detector $y = 0^n$ (the all zeros string). We have $Pr(y=0^{n}) = \mid2^{-n}\sum_{x}(-1)^{f(x)}\mid^2$. If $f(x) = c$ is a constant function, we get $Pr(y=0^{n}) = \mid(-1)^c\mid^2 = 1$. However, if $f(x)$ is a balanced function, we get $Pr(y=0^{n}) = 0$, since all terms in the sum cancel each other out. We can therefore determine whether $f$ is constant or balanced with certainty by running the experiment just once. The Deutch-Josza algorithm can be represented by the following steps:
+    The normalization condition, $\sum_{y}Pr(y) = 1$, gives us $C = 2^{-n}$. Now, we can compute the probability  of observing the particle at the detector $y = 0^n$ (the all zeros string). We have $Pr(y=0^{n}) = \mid2^{-n}\sum_{x}(-1)^{f(x)}\mid^2$. If $f(x) = c$ is a constant function, we get $Pr(y=0^{n}) = \mid(-1)^c\mid^2 = 1$. However, if $f(x)$ is a balanced function, we get $Pr(y=0^{n}) = 0$, since all terms in the sum cancel each other out. We can therefore determine whether $f$ is constant or balanced with certainty by running the experiment just once. The Deutch-Josza algorithm is as follows:
     
     \begin{enumerate}
         \item Initialize $n$ qubits in the all-zeros state $\ket{0,0,\cdots,0}.$
@@ -136,21 +135,23 @@
     \subsection{Grover Search algorithm}
     % I rewrote the intro sentence 
     %rewrote some more
-    One major benefit of Quantum computers is the ability to search databases much faster than classical computers. The Grover's search algorithm is a great example of how quantum computers acquire this advantage. When applied in an unstructured search, Grover's Search algorithm can speed up the problem quadratically. The experiments described in this paper are modeled on the resource notes provided \textbf{here}\footnote{see https://quantum-computing.ibm.com/docs/guide/q-algos/grover-s-algorithm}. 
+    One major benefit of Quantum computers is the ability to search databases much faster than classical computers. The Grover's search algorithm is a great example of how quantum computers obtain this advantage. When applied in an unstructured search, Grover's Search algorithm can speed up the problem quadratically. The experiments described in this paper are modeled on the resource notes provided \textbf{here}\footnote{see https://quantum-computing.ibm.com/docs/guide/q-algos/grover-s-algorithm}. 
     \\
     \smallskip
     \\
-    An unstructured search is basically finding a desired item from a large list of $N$ items. Using classical computing this search takes $N$ steps in the worst case scenario and $N/2$ steps on average. With a quantum computer, however, Grover’s search can speed this problem up and find the desired item in $\sqrt{N}$ steps. Grover’s algorithm provides a quadratic quantum speed-up for classical problems involving searching databases. Quadratic speedups save a lot of time while finding marked items in long lists. Another useful property of this algorithm is that it does not use the list’s internal structure, which makes it generically applicable.
+    %all of the rewrites
+    In essence, an unstructured search is the task of finding a desired item within an unordered list of $N$ items. In classical computing, this search takes $N$ steps in the worst case scenario and $N/2$ steps on average. A quantum computer using Grover's Search algorithm can reduced this search to $\sqrt{N}$ steps. An additional benefit of Grover's search algorithm is that it does not require the list to have a specific internal structure. This makes the algorithm a general solution for a wide variety of database search problems.
     \\
     \smallskip
     \\
-    The methodology we use is similar to the one we learned in class, which exploits Grover’s amplitude amplification trick by applying an oracle $U_f$ and rotating about a superposition state. The oracle we use encodes the database items provided in terms of a function $f$ which returns $f(x) = 0$ for all $x \neq w$ and $f(w) = 1$ where $w$ is the desired item. To use a quantum computer for this problem, we must provide the items in superposition to this function, so we encode the function into a unitary matrix. Here, for the basis states $\ket{x}$, the $U_f$ unitary matrix is given as $U_f \ket{x} = (-1)^{f(x)} \ket{x}$.
+    %there was no mention as to what x and w represent here so I added a small intro and rewrote rest accordingly
+    Consider an unstructured list of $N$ items. Each item is denoted $x$ except the item we are searching for which will be denoted $w$. The tactic used to search this unstructured list exploits Grover’s amplitude amplification trick by repeatedly applying an oracle $U_f$ and rotating about a superposition state. This oracle encodes all items within the list as a function $f$ which returns $f(x) = 0$ for all $x \neq w$ and $f(x) = 1$ for $x$ = $w$. This function is encoded as a unitary matrix which allows a quantum computer to interpret each item as a superposition to the function. Here, for the basis states $\ket{x}$, the $U_f$ unitary matrix is given as $U_f \ket{x} = (-1)^{f(x)} \ket{x}$.
     \\
     \smallskip
     \\
-    Since we have no idea where the marked item is, we might as well try the uniform superposition state as input for the oracle, $$\ket{s} = \frac{1}{\sqrt{N}}\sum^{N-1}_{x=0}\ket{x}$$
+    Since $w$ could be anywhere within the list, the general strategy is to try the uniform superposition state as input for the oracle: $$\ket{s} = \frac{1}{\sqrt{N}}\sum^{N-1}_{x=0}\ket{x}$$
     \noindent
-    If we measure this state, we would measure all states with equal probability (1/N). This is where amplitude amplification comes in. The algorithm utilizes geometrical interpretations of two reflections, which generate a rotation in a two-dimensional plane. The only two special states we need to consider are the desired item $\ket{w}$,  and the uniform superposition $\ket{s}$. Though these two vectors span a two-dimensional plane in the vector space $\mathbb{C}^2$, they are not quite perpendicular. However, we can introduce an additional state $\ket{s^\prime}$  that is in the span of these two vectors, which is perpendicular to $\ket{w}$ and is obtained from $\ket{s}$ by removing $\ket{w}$ and re-scaling. The Grover’s Search algorithm is as follows:
+    When we measure this state, we measure all states with equal probability (1/$N$). This is where amplitude amplification comes in. The algorithm utilizes geometrical interpretations of two reflections, which generate a rotation in a two-dimensional plane. The only two special states we need to consider are the desired item $\ket{w}$,  and the uniform superposition $\ket{s}$. Though these two vectors span a two-dimensional plane in the vector space $\mathbb{C}^2$, they are not quite perpendicular. Thus we introduce an additional state $\ket{s^\prime}$  that represents the span of these two vectors, which is perpendicular to $\ket{w}$ and is obtained from $\ket{s}$ by removing $\ket{w}$ and re-scaling. The Grover’s Search algorithm is as follows:
     
     \smallskip
     
@@ -161,13 +162,16 @@
         \item Repeat step 2.
     \end{enumerate}
     \noindent
-    The two reflections result in a rotation. The transformation $U_{s}U_f$ rotates the initial state $\ket{s}$ closer towards the desired item $\ket{w}$. Since the average amplitude has been lowered by the first reflection, this transformation boosts the negative amplitude of $\ket{w}$ to roughly three times its original value, while it decreases the other amplitudes. We then repeat step 2 several times, each time getting closer to the desired item $\ket{w}$. After $t$ steps we have $\ket{\psi_t} = U_{s}U_{f} \ket{\psi_0}$. Turns out we need roughly $\sqrt{N}$ rotations in order to zero in on $w$, as we can see that the amplitude of $\ket{w}$ grows linearly with the number of applications $\approx tN^{-1/2}$.
+    %this first sentence doesn't really make sense given it's context
+    %some rewrites
+    The two reflections result in a rotation. The transformation $U_{s}U_f$ rotates the initial state $\ket{s}$ closer towards the desired item $\ket{w}$. Since the average amplitude has been lowered by the first reflection, this transformation boosts the negative amplitude of $\ket{w}$ to roughly three times its original value, while it decreases the other amplitudes. Step 2 is then repeated several times which allows the algorithm to get closer and closer to the desired item $\ket{w}$. After $t$ steps we have $\ket{\psi_t} = U_{s}U_{f} \ket{\psi_0}$. After roughly $\sqrt{N}$ rotations, the algorithm will zero in on $w$, as we can see that the amplitude of $\ket{w}$ grows linearly with the number of applications $\approx tN^{-1/2}$.
         
 \section{Expressing Circuits in IBM Q}
-    To show how QASM and IBM Q works we took two examples from class and tested the QASM implementation against their known results. For both Deutsch-Jozsa and Grover Search IBM included numerous examples and we decided to test these examples to see if they held up to their theoretical results. While we did learn how encode circuits in QASM, using the examples allows us to test IBM's implementations and makes sure there are no errors in our encoding. These examples were run multiple times through the IBM server and we made sure they encoded the proper algorithms. The subsections bellow detail our results.
+    %some rewrites
+     For both Deutsch-Jozsa and Grover's Search algorithms, IBM had included numerous examples of their equivalent circuits. We decided to test these examples to see if they held up to their theoretical results. Using the given examples allowed us to test IBM's implementations and makes sure there were no errors in our own encoding. We verified that these encodings matched the algorithms from our notes and then ran them multiple times through the IBM servers. The subsections bellow detail our results.
     
     \subsection{Deutsch-Jozsa algorithm}
-        For this example we tested a constant and balanced function with the Deutsch-Jozsa algorithm. IBM's example for a balanced function over three qubits uses Hadamard gates, a C-not and a controlled Z-gate. This function should never return the all zero state. In contrast the constant function just Hadamards each qubit twice with no function in the middle (this is clearly a constant function as it is the Deutsch-Jozsa of the trivially constant function). When the first example circuit is run through the IBM Q software it returned even results for each state, but the all zero qubit state. This suggests that the function is balanced as the Deutsch-Jozsa algorithm never returns the string of all zeros. In contrast for the trivial constant function, the result was always the state of all zero qubits. This clearly shows that the software correctly evaluated both example circuits. We ran these simulations multiple times and never had any errors or false positives demonstrating that the quantum computer always correctly evaluated the circuits.
+        For this example we tested a constant and balanced function with the Deutsch-Jozsa algorithm. IBM's example for a balanced function over three qubits uses Hadamard gates, a C-not and a controlled Z-gate. This function should never return the all zero state. In contrast, the constant function example simply Hadamards each qubit twice with no function in the middle (this is clearly a constant function as it is the Deutsch-Jozsa of the trivially constant function). When the first example circuit is run through the IBM Q software, it returned even results for each state but the all zero qubit state. This suggests that the function is balanced since the Deutsch-Jozsa algorithm never returns the string of all zeros. In contrast, for the trivial constant function the result was always the state of all zero qubits. This clearly shows that the software correctly evaluated both example circuits. We ran these simulations multiple times without error or false positives. This demonstrates that the quantum computer can reliably evaluates these circuits.
         \begin{figure}[ht]
             \centering
             \begin{minipage}{0.35\linewidth}
@@ -181,15 +185,16 @@
         \begin{figure}[ht]
             \centering
             \includegraphics[width=\linewidth]{Circuits/Deutsch-Jozsa-result.png}
-            \caption{Result of Balanced Function}
+            \caption{Result for Balanced Function}
         \end{figure}
         \begin{figure}
             \centering
             \includegraphics[width=0.6\linewidth]{Circuits/Deutsch-Jozsa-result2.png}
-            \caption{Result of Constant Function}
+            \caption{Result for Constant Function}
         \end{figure}
     \subsection{Grover Search algorithm}
-        The Grover search algorithm finds 
+        %small fixes/trimming
+        The Grover search algorithm finds a given element inside of a list or database. As mentioned in the theory section, the number of necessary oracles for an n-qubit state is $\sqrt{n}$. For the example IBM provided, there are two qubits and four necessary oracle circuits. Each of these circuits corresponds to a given output state and if the quantum computer works properly, they would each only return one result with high probability. In this case IBM Q interpreted the four oracle circuits correctly and each only returned the expected state. This suggests that the software properly evaluated each circuit and that their example of the Grover search algorithm matched the one we studied in class.
         \begin{figure}[ht]
             \centering
             \begin{minipage}{0.35\linewidth}
@@ -202,23 +207,18 @@
         \end{figure}
     
 \section{Conclusion}
-    As of now, quantum computing does not have many general purpose abilities. While the IBM quantum computer is fascinating to experiment with and prove certain results, its computational power is quite limited. The IBM Q software was designed to allow academics and engineers to test circuits on an actual quantum computer and further software development with quantum algorithms. While the current IBM quantum computer does not provide practical benefits, it still benefits our understanding of quantum computation for when quantum computers become more accessible. IBM's software is easy to approach and use while still allowing for more complicated research and application. It was really rewarding to learn about and apply circuits from class to a real quantum computer. This paper only skims the surface of the possibilities of this software and only further research and testing will reveal the full capability of IBM's quantum software.
+    %small trimming
+    As of now, quantum computing does not have many general purpose abilities. While the IBM quantum computer is fascinating to experiment with and prove various results, its computational power is quite limited. The IBM Q software was designed to allow academics and engineers to test circuits on an actual quantum computer and further software development with quantum algorithms. While the current IBM quantum computer does not provide practical benefits, it still benefits our understanding of quantum computation for when quantum computers become more accessible. IBM's software is easy to approach and use while still allowing for more complicated research and application. It was really rewarding to learn about and apply circuits from class to a real quantum computer. This paper only skims the surface of the possibilities of this software and only further research and testing will reveal the full capability of IBM's quantum software.
     \\
     \smallskip
     \\
     In order to distinguish between states and make calculations, a two level system is required. While bits in classical computing can be easily flipped and distinguished, physical qubits are extremely volatile and will rapidly decay their energy into the environment. The current most promising method of maintaining a two level system with superconducting qubits is to keep them at extremely low temperatures. For example, the IBM Quantum Experience keeps its superconducting qubits at 15 milliKelvin in order to reduce ambient heat and noise from interfering with the system. Despite this, our current technology and understanding only allows qubits to be maintained at an excited state for a small number of microseconds. Thus any quantum computation that takes longer than a small number of microseconds will become meaningless. This severely limits the current potential of quantum computers in tackling practical problems.
-    \\
-    \smallskip
-    \\
-    
-    
-
 
 \newpage
 
 \section{Appendix}
 \subsection{Qiskit}
-        Qiskit is a framework developed around QASM to make it possible to work with IBM Q from a console. For the purposes of this project we didn't create any Qiskit files but, it would be very useful for future research. This framework can be installed as a Python library through the pip package manager. When a user inputs their API key for the IBM Q software they can send any QASM circuit to one of the backend servers for processing. The server responds with a dictionary of each possible qubit state and the number of runs that resulted in that state. This interface allows for more nuanced work and allows a user to save configuration and circuit settings between queries. For the average user Qiskit adds a lot of unnecessary complexity and code to the process of drawing and testing a quantum circuit but, for researchers and engineers it allows for more flexible configurations and setups for testing quantum circuitry.
+        Qiskit is a framework developed around QASM to make it possible to work with IBM Q from a console. For the purposes of this project we didn't create any Qiskit files but, it would be very useful for future research. This framework can be installed as a Python library through the pip package manager. When a user inputs their API key for the IBM Q software they can send any QASM circuit to one of the backend servers for processing. The server responds with a dictionary of each possible qubit state and the number of runs that resulted in that state. This interface allows for more nuanced work and allows a user to save configuration and circuit settings between queries. For the average user Qiskit adds a lot of unnecessary complexity and code to the process of drawing and testing a quantum circuit but, for researchers and engineers it allows for more flexible configurations and setups for testing quantum circuitry. We would highly recommend the Qiskit framework for work utilizing the IBM Q quantum computing platform.
 
 \end{document}
 
