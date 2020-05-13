@@ -41,34 +41,40 @@
 \begin{document}
 
 \maketitle
-
-\section{The IBM Q System One}
-    
-    \begin{figure}[h!]
+%moved image above chapter and started chapter 1 on a fresh page, it seemed awkward to just have a picture in the beginning of a chapter
+\begin{figure}[h!]
         \centering
         \includegraphics[width=\linewidth]{Circuits/ibm-q.jpg}
         \caption{The IBM Q System One quantum computer}
     \end{figure}
+    \newpage
+\section{The IBM Q System One}
     
+    
+    %fixed typos and small rewrite of last sentence
     \noindent
-    All computing systems rely on a fundamental ability to store and manipulate information. Classical computers manipulate individual bits, which store information as binary 0 and 1 states. Quantum computers instead leverage quantum mechanical phenomena to manipulate information. To do this, they rely on quantum bits, or qubits, which are unit vectors in $\mathbb{C}^2$. Storing and manipulating data in the form of qubits leads to more information, which allows for several fast and efficient algorithms for tasks that are harder or impossible to solve on a classical computer.
+    All computing systems rely on a fundamental ability to store and manipulate information. Classical computers manipulate individual bits, which store information as binary 0 and 1 states. Quantum computers instead leverage quantum mechanical phenomena to manipulate information. To do this, they rely on quantum bits, or qubits, which are unit vectors in $\mathbb{C}^2$. Storing and manipulating data in the form of qubits leads to more information. This opens up the possibilities for faster and more efficient algorithms that allow quantum computers to tackle problems that would be harder or practically impossible to solve on a classical computer.
     \\
     \smallskip
     \\
+    %maybe describe briefly what shor's algorithm does?
+    % shor's is poly time factorization I think? 
     The history of quantum computing research goes all the way back to 1927 and each result marked a new piece of the puzzle. In October 2017, a significant mathematical result was published in the paper “Quantum Advantage with Shallow Circuits” (Bravyi et al. 2018), which guided the development of algorithms for quantum computing. The significance of this algorithm was that unlike Shor’s algorithm, it proved that a quantum computer can solve certain problems with near certainty in a fixed number of steps, no matter the increased input. A classical computer, on the other hand,  would require an increased number of steps as the input increases for the same problems. This made the Quantum Advantage algorithm a solid and necessary brick in the foundation of quantum computing.
     \\
     \smallskip
     \\
-    Building on this foundation, in 2019 IBM Quantum designed and built the world’s first integrated quantum computing system for commercial use: IBM Q System One\ibm\,in order to make quantum computers more reliable and stable. IBM Q System One enabled universal approximate superconducting quantum computers to operate beyond the confines of the research lab and is available online for free. In this paper, we recreate circuits to experiment with the Grover’s Search algorithm and the Deutsch-Josza algorithm, and describe both our results as well as what we learned during the process.
+    %rewrote last sentence
+    Building on this foundation, in 2019 IBM Quantum designed and built the world’s first integrated quantum computing system for commercial use: IBM Q System One\ibm\,in order to make quantum computers more reliable and stable. IBM Q System One enabled universal approximate superconducting quantum computers to operate beyond the confines of the research lab and is available online for free. In this paper, we describe using the ibm software, recreate circuits to experiment with the Grover’s Search algorithm and the Deutsch-Josza algorithm, and describe our results.
 
 
 \section{Coding in IBM Q}
     \textbf{IBM Q} was designed to make computing the outcome of Quantum circuits as simple as possible. The built in Circuit Composer allows users to intuitively click and drag universal quantum gates onto a set of qubits. The user can then view the \textbf{QASM} language\qasm \ encoding of their circuit and manipulate it further if they wish. Finally, IBM's cloud based compute model allows the user to run their encoding on one of IBM's servers where it will join a queue before the results of the quantum circuit are sent back to the user. This whole process is highly documented and user friendly. 
-    
-    This section will outline how to use the Circuit Composer to make and test quantum circuits as well as provide some simple examples of the interface.
+    %small rewrites
+    This section will outline how to use the Circuit Composer in greater detail as well as provide some simple examples of the interface.
     
     \subsection{Circuit Composer}
-        The IBM Q Circuit Composer presents the circuit visual as well as the \textbf{QASM} circuit encoding side by side. By allowing interactions with either, this platform helps the user quickly learn how to tweak their circuit exactly as they want it. This visual interface provides icons for each gate along with a glossary entry for each icon that explains what the gate does. Despite providing the option to write code, the Circuit Composer in no way forces the user to have past programming experience. The QASM representation simply allows more precise control over the circuit creation process.
+        %small rewrites
+        The IBM Q Circuit Composer presents the circuit visual as well as the \textbf{QASM} circuit encoding side by side. By allowing user interaction with either, this platform helps the user quickly learn how to tweak their circuit exactly as they want it. This visual interface provides icons for each gate along with a glossary entry for each icon that explains what the gate does. Despite providing the option to write code, the Circuit Composer in no way forces the user to have past programming experience. The QASM representation simply allows more precise control over the circuit creation process.
         
         \begin{figure}[ht]
             \centering
@@ -77,24 +83,30 @@
         \end{figure}
         
     \subsection{Encoding}
-        Circuit encoding in IBM Q is simple. The software uses the QASM language developed by IBM in 2017 and uses arrays to represent qubit input states. The QASM provides a set of quantum gates that are represented with letters and take the qubits they are being applied to as inputs. The order in which these appear in the code correlates to the order they appear on the circuit. This encoding can then be interpreted by the IBM servers in order to compute the results of the circuit.
+        %small rewrites
+        Circuit encoding in IBM Q is simple. The software uses the QASM language developed by IBM in 2017 and uses arrays to represent qubit input states. The QASM provides a set of quantum gates that are represented with letters and take qubits as inputs. The order in which these gates appear in the code correlates to the order that they appear on the circuit. This encoding can then be interpreted by the IBM servers in order to compute the results of the circuit.
         \\
          \smallskip
         \\
         Encoding each circuit into a small file is a crucial element of IBM Q software for a number of reasons. Most importantly, the simplified and optimized encoding helps combat the severe limitations of our current quantum computing capabilities. The optimization occurs when IBM transpiles\footnote{The transpiler introduces the concept of a pass manager to allow users to explore optimization and find better quantum circuits for their given algorithm (Qiskit 20).} the circuit encoding. In this process, the number of quantum gates is reduced as much as possible while maintaining the circuit's properties. Additionally, the small file size minimizes data transfer between users and IBM servers which allows faster and more convenient access for everyone.
 
     \subsection{Getting Results}
-        As previously mentioned, IBM Q is fully cloud based. This system utilizes multiple global servers to process user circuits. When a user submits their circuit to be run a specified number of times, it joins a server queue. These servers utilize classical computers to decode the quantum circuit and send the corresponding qubits to a real quantum computer. The quantum computer then runs the circuit the set number of times and returns the results from the circuit back to the user. The results use a histogram to display each returned state along with probability with which that state appeared. These results also include the time it took for the circuit to transpile, validate, queue, and run.
+        %small rewrites
+        As previously mentioned, IBM Q is fully cloud based. This system utilizes multiple global servers to process user circuits. When a user submits their circuit to be run a specified number of times, it joins a server queue. These servers utilize classical computers to decode the quantum circuit and send the corresponding qubits to a real quantum computer. The quantum computer then runs the circuit as many times as specified and returns the results back to the user. The results use a histogram to display each returned state along with probability with which that state appeared. These results also include the time it took for the circuit to transpile, validate, queue, and run.
         
         
 \section{Theory}
     \subsection{Deutsch-Jozsa algorithm}
-    
-    The Deutsch-Jozsa algorithm was the first to show a separation between the quantum and classical difficulty of a problem. Formally, it is defined as follows: Consider a function $f(x)$ that takes as input $n$-bit strings $x$ and returns 0 or 1, where we are promised that $f(x)$ is either a \emph{constant} function that takes the same value $c \in {0,1}$ on all inputs $x$, or a \emph{balanced} function that takes each value 0 and 1 on exactly half of the inputs. \textbf{The goal is to decide whether $f$ is constant or balanced by making as few function evaluations as possible}. 
+    %first sentence here is kinda funky, not sure how to fix because I'm not sure what it's saying
+    %small rerwrites
+    The Deutsch-Jozsa algorithm was one of the first quantum algorithms to show a separation between the quantum and classical difficulty of a problem. Formally, it is defined as follows: Consider a function $f(x)$ that takes as input $n$-bit strings $x$ and returns 0 or 1. We are promised that $f(x)$ is either a \emph{constant} function that takes the same value $c \in {0,1}$ on all inputs $x$, or a \emph{balanced} function that takes each value 0 and 1 on exactly half of the inputs. \textbf{The goal is to decide whether $f$ is constant or balanced by making as few function evaluations as possible}. 
     \\
     \smallskip
     \\
-    A simple implementation of this was what we did in class, where we used the phase kickback trick for an oracle to guess the sum of two bits using only a single query, which classically would take 2 queries. In our experiments, we implement a more `quantum-like' experimental setup that is described \textbf{here}\footnote{see https://quantum-computing.ibm.com/docs/guide/q-algos/deutsch-jozsa-algorithm}. In this setup, consider a typical interference experiment where a particle that behaves like a wave, such as a photon, can travel from the source to an array of detectors by following two or more paths simultaneously. The probability of observing the particle will be concentrated at those detectors where most of the incoming waves arrive with the same phase. We can set up the $2^n$ possible paths and $2^n$ detectors with $n$-bit strings $x$ and $y$ respectively. Though this experiment is not practical since it would require an impossibly large optical table, we can simulate this experiment on a quantum computer with just $n$ qubits and access to the oracle circuit $U_f$. Classically, this method requires $2^{n-1}+1$ function evaluations in the worst case, but using the Deutsch-Jozsa algorithm the question can be answered with just one function evaluation.
+    %rewrites
+    Our class performed a simple implementation of the Deutsch-Jozsa algorithm in which we used the `phase kickback trick' for an oracle to guess the sum of two bits using only a single query. Classically this would take 2 queries. %i don't understand the next sentence
+    In our tests with the IBM software, we implement a more `quantum-like' experimental setup that is described \textbf{here}\footnote{see https://quantum-computing.ibm.com/docs/guide/q-algos/deutsch-jozsa-algorithm}. In this setup, consider a typical interference experiment where a particle that behaves like a wave, such as a photon, can travel from the source to an array of detectors by following two or more paths simultaneously. The probability of observing the particle will be concentrated at those detectors where most of the incoming waves arrive with the same phase. 
+    We can set up the $2^n$ possible paths and $2^n$ detectors with $n$-bit strings $x$ and $y$ where $x$ denotes a path and $y$ denotes a detector. Though this experiment is not practical since it would require an impossibly large optical table, we can simulate this experiment on a quantum computer with just $n$ qubits and access to the oracle circuit $U_f$. Classically, this method requires $2^{n-1}+1$ function evaluations in the worst case, but using the Deutsch-Jozsa algorithm the question can be answered with just one function evaluation.
     \\
     \smallskip
     \\
@@ -104,7 +116,8 @@
     \end{equation}
     
     \noindent
-    The normalization condition, $\sum_{y}Pr(y) = 1$, gives us $C = 2^{-n}$. Now, we can compute the probability  of observing the particle at the detector $y = 0^n$ (all zeros string). We have $Pr(y=0^{n}) = \mid2^{-n}\sum_{x}(-1)^{f(x)}\mid^2$. If $f(x) = c$ is a constant function, we get $Pr(y=0^{n}) = \mid(-1)^c\mid^2 = 1$. However, if $f(x)$ is a balanced function, we get $Pr(y=0^{n}) = 0$, since all the terms in the sum over  cancel each other out. We can therefore determine whether $f$ is constant or balanced with certainty by running the experiment just once. This methodology gives us the Deutch-Josza algorithm:
+    %small rewrites
+    The normalization condition, $\sum_{y}Pr(y) = 1$, gives us $C = 2^{-n}$. Now, we can compute the probability  of observing the particle at the detector $y = 0^n$ (the all zeros string). We have $Pr(y=0^{n}) = \mid2^{-n}\sum_{x}(-1)^{f(x)}\mid^2$. If $f(x) = c$ is a constant function, we get $Pr(y=0^{n}) = \mid(-1)^c\mid^2 = 1$. However, if $f(x)$ is a balanced function, we get $Pr(y=0^{n}) = 0$, since all terms in the sum cancel each other out. We can therefore determine whether $f$ is constant or balanced with certainty by running the experiment just once. The Deutch-Josza algorithm can be represented by the following steps:
     
     \begin{enumerate}
         \item Initialize $n$ qubits in the all-zeros state $\ket{0,0,\cdots,0}.$
@@ -115,21 +128,23 @@
     \end{enumerate}
     
     \noindent
-   The applications of Hadamards at Step 4 maps a basis state  to a superposition $2^{-n/2}\sum_{y}(-1)^{x.y}\ket{y}$. Thus the state reached after Step 4 is $\ket{\Psi} = \sum_{y}\Psi(y)\ket{y}$, where $\Psi (y) = 2^{-n}\sum_{x}(-1)^{f(x)+x.y}$. This is exactly what we need for the interference experiment described above. The final measurement at Step 5 plays the role of detecting the particle. The probability to measure  at Step 5 is 1 if $f$ is a constant function and 0 if $f$ is a balanced function. Thus we have solved the Deutsch-Jozsa problem with certainty by making just one function evaluation.
+    %small rewrites
+   The applications of Hadamards in Step 4 maps a basis state  to a superposition $2^{-n/2}\sum_{y}(-1)^{x.y}\ket{y}$. Thus the state reached after Step 4 is $\ket{\Psi} = \sum_{y}\Psi(y)\ket{y}$, where $\Psi (y) = 2^{-n}\sum_{x}(-1)^{f(x)+x.y}$. This is exactly what we need for the interference experiment described above. The final measurement at Step 5 represents detecting the particle. The probability to measure in Step 5 is 1 if $f$ is a constant function and 0 if $f$ is a balanced function. Thus the Deutsch-Jozsa problem is solved with certainty by making just one function evaluation.
     
     
     
     \subsection{Grover Search algorithm}
-    
-    One of the many advantages a quantum computer has over a classical computer is its superior speed searching databases. An algorithm that is a great example of this advantage is Grover’s Search algorithm. When applied on an unstructured search, this algorithm can speed up the problem quadratically. The experiments described in this paper are modeled on the resource notes provided \textbf{here}\footnote{see https://quantum-computing.ibm.com/docs/guide/q-algos/grover-s-algorithm}. 
+    % I rewrote the intro sentence 
+    %rewrote some more
+    One major benefit of Quantum computers is the ability to search databases much faster than classical computers. The Grover's search algorithm is a great example of how quantum computers acquire this advantage. When applied in an unstructured search, Grover's Search algorithm can speed up the problem quadratically. The experiments described in this paper are modeled on the resource notes provided \textbf{here}\footnote{see https://quantum-computing.ibm.com/docs/guide/q-algos/grover-s-algorithm}. 
     \\
     \smallskip
     \\
-    An unstructured search is basically finding a desired item from a large list of $N$ items. Classically, this search takes $N/2$ steps on average and $N$ steps in the worst case scenario. With a quantum computer, however, Grover’s search can speed this problem up and find the desired item in $\sqrt{N}$ steps. Grover’s algorithm immediately provides a quadratic quantum speed-up for many classical problems. Quadratic speedups are indeed a substantial time-saver for finding marked items in long lists. Another useful property of this algorithm is that it does not use the list’s internal structure, which makes it generically applicable.
+    An unstructured search is basically finding a desired item from a large list of $N$ items. Using classical computing this search takes $N$ steps in the worst case scenario and $N/2$ steps on average. With a quantum computer, however, Grover’s search can speed this problem up and find the desired item in $\sqrt{N}$ steps. Grover’s algorithm provides a quadratic quantum speed-up for classical problems involving searching databases. Quadratic speedups save a lot of time while finding marked items in long lists. Another useful property of this algorithm is that it does not use the list’s internal structure, which makes it generically applicable.
     \\
     \smallskip
     \\
-    The methodology we use is similar to the one we learned in class, which exploits Grover’s amplitude amplification trick by applying an oracle $U_f$ and rotating about a superposition state. The oracle we use encodes the list items provided to the computer in terms of a function $f$ which returns $f(x) = 0$ for all $x \neq w$ and $f(w) = 1$ where $w$ is the desired item. To use a quantum computer for this problem, we must provide the items in superposition to this function, so we encode the function into a unitary matrix. Here, for the basis states $\ket{x}$, the $U_f$ unitary matrix is given as $U_f \ket{x} = (-1)^{f(x)} \ket{x}$.
+    The methodology we use is similar to the one we learned in class, which exploits Grover’s amplitude amplification trick by applying an oracle $U_f$ and rotating about a superposition state. The oracle we use encodes the database items provided in terms of a function $f$ which returns $f(x) = 0$ for all $x \neq w$ and $f(w) = 1$ where $w$ is the desired item. To use a quantum computer for this problem, we must provide the items in superposition to this function, so we encode the function into a unitary matrix. Here, for the basis states $\ket{x}$, the $U_f$ unitary matrix is given as $U_f \ket{x} = (-1)^{f(x)} \ket{x}$.
     \\
     \smallskip
     \\
@@ -147,9 +162,6 @@
     \end{enumerate}
     \noindent
     The two reflections result in a rotation. The transformation $U_{s}U_f$ rotates the initial state $\ket{s}$ closer towards the desired item $\ket{w}$. Since the average amplitude has been lowered by the first reflection, this transformation boosts the negative amplitude of $\ket{w}$ to roughly three times its original value, while it decreases the other amplitudes. We then repeat step 2 several times, each time getting closer to the desired item $\ket{w}$. After $t$ steps we have $\ket{\psi_t} = U_{s}U_{f} \ket{\psi_0}$. Turns out we need roughly $\sqrt{N}$ rotations in order to zero in on $w$, as we can see that the amplitude of $\ket{w}$ grows linearly with the number of applications $\approx tN^{-1/2}$.
-    
-    
-    
         
 \section{Expressing Circuits in IBM Q}
     To show how QASM and IBM Q works we took two examples from class and tested the QASM implementation against their known results. For both Deutsch-Jozsa and Grover Search IBM included numerous examples and we decided to test these examples to see if they held up to their theoretical results. While we did learn how encode circuits in QASM, using the examples allows us to test IBM's implementations and makes sure there are no errors in our encoding. These examples were run multiple times through the IBM server and we made sure they encoded the proper algorithms. The subsections bellow detail our results.
@@ -177,7 +189,7 @@
             \caption{Result of Constant Function}
         \end{figure}
     \subsection{Grover Search algorithm}
-        This algorithm looks the 
+        The Grover search algorithm finds 
         \begin{figure}[ht]
             \centering
             \begin{minipage}{0.35\linewidth}
